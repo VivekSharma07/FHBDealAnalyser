@@ -92,6 +92,7 @@ const InTheWorksLeads = () => {
           </TableCaption>
           <TableHeader>
             <TableRow>
+            <TableHead >No</TableHead>
               <TableHead className="w-[100px]">Seller Name</TableHead>
               <TableHead>Property Address</TableHead>
               <TableHead>Projected Revenue</TableHead>
@@ -99,8 +100,10 @@ const InTheWorksLeads = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((item) => (
+            {data.map((item, index) => (
               <TableRow key={helper_get_podio_field('app_item_id', item.fields)} className="py-2 gap-2">
+                <TableCell className="font-medium">{index+1}</TableCell>
+
                 <TableCell className="font-medium">{stripHtmlTags(helper_get_podio_field('sellers-name', item.fields))}</TableCell>
                 <TableCell className="font-medium">
                   {helper_get_podio_field('address', item.fields)}

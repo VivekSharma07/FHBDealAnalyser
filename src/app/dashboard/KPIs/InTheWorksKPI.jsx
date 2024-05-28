@@ -58,6 +58,8 @@ const InTheWorksKPICount = () => {
           </TableCaption>
           <TableHeader>
             <TableRow>
+            <TableHead>No</TableHead>
+
               <TableHead>Sent by Client</TableHead>
 
               <TableHead className="w-[100px]">Property Address</TableHead>
@@ -68,8 +70,11 @@ const InTheWorksKPICount = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((item) => (
+            {data.map((item, index) => (
               <TableRow key={item["podio-app-item-id"]}>
+                <TableCell className="font-medium">
+                  {index+1}
+                </TableCell>
                 <TableCell className="font-medium">
                   {item && item.hasOwnProperty("client-that-sent-deal")
                     ? item["client-that-sent-deal"]
