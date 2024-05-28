@@ -34,36 +34,10 @@ function helper_get_podio_field(external_id, item_data){
     return data.length>0 ? data[0].values[0].value : null;
 }
 
-const InTheWorksLeadCount = () => {
-  const [data, setData] = useState(null);
+const InTheWorksLeadCount = ({leadData, relationships, transactions}) => {
+  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const get_token = await axios.get(
-          `/api/servingToken`
-        );
-        const { access_token } = get_token.data.token_data;
-        const response = await axios.post(
-          `https://api.podio.com/item/app/28747016/filter/59074126/`, {limit: 100},
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log(`response = `, response);
-        setData(response.data.items);
-      } catch (error) {
-        console.error("Error fetching KPI data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (!data) {
+  if (leadData.items.length === 0) {
     return (
       <div className="shadow rounded-lg p-6">
         <Skeleton className="h-6 w-1/2 mb-2" />
@@ -75,7 +49,7 @@ const InTheWorksLeadCount = () => {
   return (
     <div className=" shadow rounded-lg p-6 text-center border border-gray-400">
       <h3 className="text-xl font-semibold mb-2">Leads In the Works</h3>
-      <p className="text-4xl font-bold text-blue-600">{data.length}</p>
+      <p className="text-4xl font-bold text-blue-600">{leadData.items.length}</p>
     </div>
   );
 };

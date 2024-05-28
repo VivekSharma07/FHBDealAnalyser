@@ -41,36 +41,9 @@ function helper_get_podio_field(external_id, item_data){
 
     return data.length>0 ? data[0].values[0].value : null;
 }
-const InTheWorksLeads = () => {
-  const [data, setData] = useState(null);
+const InTheWorksLeads = ({leadData, relationships, transactions}) => {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const get_token = await axios.get(
-          `/api/servingToken`
-        );
-        const { access_token } = get_token.data.token_data;
-        const response = await axios.post(
-          `https://api.podio.com/item/app/28747016/filter/59074126/`, {limit: 100},
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log(`response = `, response);
-        setData(response.data.items);
-      } catch (error) {
-        console.error("Error fetching KPI data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (!data) {
+  if (leadData.items.length === 0) {
     return (
       <div className="flex flex-col space-y-3">
         <Skeleton className="h-[125px] w-[200px] rounded-xl" />
@@ -100,7 +73,7 @@ const InTheWorksLeads = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((item, index) => (
+            {leadData.items.map((item, index) => (
               <TableRow key={helper_get_podio_field('app_item_id', item.fields)} className="py-2 gap-2">
                 <TableCell className="font-medium">{index+1}</TableCell>
 

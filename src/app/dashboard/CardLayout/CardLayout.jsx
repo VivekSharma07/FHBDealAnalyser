@@ -3,7 +3,7 @@ import InTheWorksKPICount from '../KPIs/InTheWorksKPICount'
 import InTheWorksLeadCount from '../KPIs/InTheWorksLeadCount';
 import ProjectedRevenueDeals from '../KPIs/ProjectedRevenueDeals';
 import ProjectedRevenueLeads from '../KPIs/ProjectedRevenueLeads';
-
+import {useEffect} from 'react'
 const KPICard = ({ title, value }) => {
   return (
     <div className="shadow rounded-lg p-6">
@@ -13,13 +13,35 @@ const KPICard = ({ title, value }) => {
   );
 };
 
-const CardLayout = () => {
+
+
+const CardLayout = ({leadData, relationships, transactions}) => {
+  useEffect(()=>{
+    console.log(`states received = `, leadData, relationships, transactions)
+  }, [])
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-5">
-      <InTheWorksKPICount />
-      <InTheWorksLeadCount/>
-      <ProjectedRevenueDeals/>
-      <ProjectedRevenueLeads/>
+      <InTheWorksKPICount
+      leadData={leadData}
+      relationships={relationships}
+      transactions={transactions}
+      />
+      <InTheWorksLeadCount
+      leadData={leadData}
+      relationships={relationships}
+      transactions={transactions}
+      />
+      <ProjectedRevenueDeals
+      leadData={leadData}
+      relationships={relationships}
+      transactions={transactions}
+      />
+      <ProjectedRevenueLeads
+      leadData={leadData}
+      relationships={relationships}
+      transactions={transactions}
+      />
+      
 
     </div>
   );

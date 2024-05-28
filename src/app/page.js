@@ -4,10 +4,19 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import Features from "@/components/features";
 import Image from "next/image";
+import { useEffect } from "react";
 
 const Home = () => {
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
+
+    useEffect(() => {
+      if(user?.uid){
+        router.push('/dashboard')
+      }
+      
+  
+    }, [user]);
 
   const handleGetStarted = () => {
     if (user) {
