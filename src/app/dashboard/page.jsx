@@ -84,6 +84,11 @@ const router = useRouter()
     <ProtectedLayout>
       {auth.currentUser && (
         <div className="min-h-screen grid grid-cols-[auto_1fr] gap-8 p-8 ">
+          <div className="absolute top-2 right-5">
+        <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg shadow-lg p-4">
+          <h2 className="text-lg font-semibold">Hello, {auth.currentUser.email}!</h2>
+        </div>
+      </div>
           <div className="shadow rounded-lg p-6">
             <h2 className="text-2xl font-semibold mb-6">Dashboard</h2>
             <div className="space-y-8">
