@@ -13,6 +13,55 @@ import {
 } from "react-icons/fa";
 import { auth } from "../../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
+// ThemeToggle.jsx
+
+const ThemeToggle = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    document.documentElement.classList.toggle('dark');
+  };
+
+  return (
+    <button
+      className="bg-gray-200 dark:bg-gray-700 rounded-full p-2 focus:outline-none"
+      onClick={toggleTheme}
+    >
+      {isDarkMode ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-primary-dark"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+          />
+        </svg>
+      ) : (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-primary"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+          />
+        </svg>
+      )}
+    </button>
+  );
+};
 
 const ProtectedLayout = ({ children }) => {
   const router = useRouter();
@@ -34,16 +83,16 @@ const ProtectedLayout = ({ children }) => {
   };
 
   return (
-    <div className="flex bg-background min-h-screen">
+    <div className="flex bg-background min-h-screen ">
       <div className="fixed top-0 left-0 z-50">
         <button
           className="p-4 focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? (
-            <FaTimes className="h-6 w-6 text-white" />
+            <FaTimes className="h-6 w-6 " />
           ) : (
-            <FaBars className="h-6 w-6 text-white" />
+            <FaBars className="h-6 w-6 " />
           )}
         </button>
       </div>
@@ -51,7 +100,7 @@ const ProtectedLayout = ({ children }) => {
 
       <div className="flex flex-col min-h-screen">
       <nav
-        className={`bg-background text-white w-64 min-h-screen p-4 fixed transition-transform duration-300 ease-in-out rounded-r-lg border-r border-white border-opacity-20 ${
+        className={`bg-background  w-64 min-h-screen p-4 fixed transition-transform duration-300 ease-in-out rounded-r-lg border-r border-gray-400 ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -66,7 +115,7 @@ const ProtectedLayout = ({ children }) => {
         <ul className="space-y-4 mb-8">
           <li
             className={`${
-              isActive("/dashboard") ? "bg-black text-blue-600" : ""
+              isActive("/dashboard") ? "bg-black text-blue-600 rounded-lg" : ""
             }`}
           >
             <Link
@@ -105,7 +154,7 @@ const ProtectedLayout = ({ children }) => {
         <div className="mt-auto">
           <div className="absolute flex-end">
             <button
-              className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-left text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-600 focus:ring-white"
+              className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-left  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-600 focus:ring-white"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <span>Options</span>
@@ -144,6 +193,7 @@ const ProtectedLayout = ({ children }) => {
                     <span>Logout</span>
                   </div>
                 </button>
+                <ThemeToggle/>
               </div>
             )}
           </div>

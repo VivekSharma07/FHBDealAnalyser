@@ -10,7 +10,7 @@ import { auth, db } from "../../../firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
-
+import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignIn = () => {
@@ -54,23 +54,71 @@ const SignIn = () => {
       }
     } else {
       try {
-        await signInWithEmailAndPassword(email, password).then((value)=>{
-          console.log(`user details = `, value);
-        })
+        const signinResp = await signInWithEmailAndPassword(email, password);
+        if (!signinResp) {
+          throw new Error("Wrong credentials");
+        }
+        console.log(`signin resp = `, signinResp);
         toast.success("You're being redirected", {
           position: "bottom-left",
           autoClose: 2000,
         });
         router.push("/dashboard");
       } catch (error) {
-        console.log(`error in logging in`)
-        toast.error(error.message, {
+        toast.error("Invalid email or password", {
           position: "top-center",
           autoClose: 3000,
         });
       }
     }
   };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (isSignUp) {
+  //     if (password !== confirmPassword) {
+  //       toast.error("Passwords do not match", {
+  //         position: "top-center",
+  //         autoClose: 3000,
+  //       });
+  //       return;
+  //     }
+
+  //     try {
+  //       const { user } = await createUserWithEmailAndPassword(email, password);
+  //       await setDoc(doc(db, "users", user.uid), {
+  //         ...user,
+  //       });
+  //       toast.success("You're being redirected", {
+  //         position: "bottom-left",
+  //         autoClose: 2000,
+  //       });
+  //       router.push("/dashboard");
+  //     } catch (error) {
+  //       toast.error(error.message, {
+  //         position: "top-center",
+  //         autoClose: 3000,
+  //       });
+  //     }
+  //   } else {
+  //     try {
+  //       await signInWithEmailAndPassword(email, password).then((value)=>{
+  //         console.log(`user details = `, value);
+  //       })
+  //       toast.success("You're being redirected", {
+  //         position: "bottom-left",
+  //         autoClose: 2000,
+  //       });
+  //       router.push("/dashboard");
+  //     } catch (error) {
+  //       console.log(`error in logging in`)
+  //       toast.error(error.message, {
+  //         position: "top-center",
+  //         autoClose: 3000,
+  //       });
+  //     }
+  //   }
+  // };
 
   const handleGoogleSignIn = async () => {
     try {
@@ -93,8 +141,15 @@ const SignIn = () => {
 
   // ...
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-background my-5 p-5 ">
+      <div className="p-8 rounded-lg shadow-md w-full max-w-md border border-gray-400">
+        <div className="flex justify-center items-center p-5 my-4 mx-4 border-b border-gray-400">
+          <Image
+            src="/Logos/ForeverHomeBuyerLogo.png"
+            width={100}
+            height={100}
+          />
+        </div>
         <h2 className="text-2xl font-bold mb-6 text-text">
           {isSignUp ? "Sign Up" : "Sign In"}
         </h2>
@@ -152,8 +207,11 @@ const SignIn = () => {
           >
             {isSignUp ? "Sign Up" : "Sign In"}
           </button>
+
+        <p className="flex items-center justify-center my-4 p-2">Need an FHB account? Contact your Developer</p>
+
         </form>
-        <div className="mt-4 text-center">
+        {/* <div className="mt-4 text-center">
           <button
             className="text-primary hover:underline focus:outline-none"
             onClick={() => setIsSignUp(!isSignUp)}
@@ -162,13 +220,14 @@ const SignIn = () => {
               ? "Already have an account? Sign In"
               : "Don't have an account? Sign Up"}
           </button>
-        </div>
-        <div className="mt-6 flex justify-center">
+        </div> */}
+
+        {/*Google Sign In Button */}
+        {/* <div className="mt-6 flex justify-center">
           <button
             className="bg-white text-text border border-gray-300 py-2 px-4 rounded-md hover:bg-gray-100 focus:outline-none flex items-center"
             onClick={handleGoogleSignIn}
           >
-            {/* ... */}
             <div className="mt-6 flex justify-center">
               <button
                 className="bg-white text-gray-700 border border-gray-300 py-2 px-4 rounded-md hover:bg-gray-100 focus:outline-none flex items-center"
@@ -201,7 +260,7 @@ const SignIn = () => {
               </button>
             </div>
           </button>
-        </div>
+        </div> */}
       </div>
       <ToastContainer />
     </div>
