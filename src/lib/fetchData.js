@@ -33,10 +33,10 @@ export async function handleSave(initialData, setSaving, docId) {
   setSaving(true);
 console.log(`under handlesave function`)
   try {
-    const result = await updateOrCreateDeal({data: {
+    const result = await updateOrCreateDeal({
       docId: docId, // Pass the document ID (or null if creating a new one)
       dealData: initialData, // Pass the data to save
-    }});
+    });
 
     console.log(result.data); // Handle success message from Firebase Function
     // Optionally, navigate to the newly created document if needed
