@@ -39,6 +39,10 @@ console.log(`under handlesave function`)
     });
 
     console.log(result.data); // Handle success message from Firebase Function
+    if(!result){
+        throw new Error('Unexpected CORS Block Policy Triggered')
+    }
+    
     // Optionally, navigate to the newly created document if needed
     if (!docId) {
         throw new Error('No Document ID Provided')

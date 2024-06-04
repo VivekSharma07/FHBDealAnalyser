@@ -5,12 +5,14 @@ import CurrencyInput from "react-currency-input-field";
 import "./DealAnalyserForm.css";
 import {db, auth} from '../../../../firebase/firebaseConfig'
 import {useRouter} from 'next/navigation'
-import { toast } from "react-toastify";
 import { handleSave } from "@/lib/fetchData";
+import { useToast } from "@/components/ui/use-toast"
 
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "@/components/ui/toaster"
 const DealFormDynamic = ({initialData, docId}) => {
     const router = useRouter();
+    const { toast } = useToast()
+
   const [openSections, setOpenSections] = useState({
     basicInfo: true,
     propertyDescription: true,
@@ -119,15 +121,18 @@ const DealFormDynamic = ({initialData, docId}) => {
   async function onSave () {
     try {
       await handleSave(formData, setSaving, docId);
-      toast.success("Deal Saved!", {
-                position: "bottom-right",
-                autoClose: 2000,
-              });
+      toast({
+        title: "Deal Updated",
+        description: "Deal Updated Successfully!",
+        variant: "default",
+
+      })
     } catch (error) {
-      toast.error(`Error in saving deal: ${error.message}`, {
-        position: "bottom-right",
-        autoClose: 2000,
-      });
+      toast({
+        title: "Error in Updating Deal",
+        description: error.message,
+        variant: 'destructive'
+      })
     }
     
   };
@@ -343,6 +348,7 @@ const DealFormDynamic = ({initialData, docId}) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-screen overflow-y-auto text-sm">
+
         {Object.keys(initialData).length === 0 ? (
         <>
           <Skeleton className="h-6 w-1/2 mb-2" />
@@ -351,9 +357,14 @@ const DealFormDynamic = ({initialData, docId}) => {
       ) : 
       (
         <div className="p-4 text-primary dark:text-primary-dark">
+      
+      <Toaster />
+
+
         <h1 className="text-3xl sm:text-4xl mb-8 items-center font-medium">
           Deal Analyser v1
         </h1>
+
 
         {/* 4 Cards at the top*/}
 
@@ -2534,7 +2545,6 @@ const DealFormDynamic = ({initialData, docId}) => {
           {saving ? "Saving..." : "Save"}
         </button>
       </div>
-      <ToastContainer/>
     </div>
 
     

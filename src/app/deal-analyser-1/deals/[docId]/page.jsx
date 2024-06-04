@@ -2,49 +2,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import ProtectedLayout from "../../../../components/protected_layout";
 import DealFormDynamic from "./dealForm";
-import { fetchDealAnalyzerData, handleSave } from "@/lib/fetchData";
-// import { useAuthState } from "react-firebase-hooks/auth";
-// import { useRouter } from 'next/navigation';
-// import { useEffect } from 'react';
-
-// async function fetchDealAnalyzerData(docId) {
-//   try {
-//     const dealAnalyzerRef = doc(db, "deal-analyser", docId);
-//     const dealAnalyzerSnap = await getDoc(dealAnalyzerRef);
-
-//     if (dealAnalyzerSnap.exists()) {
-//       return dealAnalyzerSnap.data();
-//     } else {
-//       return null;
-//     }
-//   } catch (error) {
-//     console.error("Error fetching deal analyzer:", error);
-//     throw new Error("Failed to fetch deal analyzer data");
-//   }
-// }
+import { fetchDealAnalyzerData } from "@/lib/fetchData";
 
 export default function DealAnalyzerItemPage({ params: { docId } }) {
-  // const router = useRouter();
-  // const [user, loading] = useAuthState(auth);
-
-  // useEffect(() => {
-  //   if (!loading && !user) {
-  //     router.push('/signin');
-  //   }
-  // }, [loading, user, router]);
-
-  // if (loading) {
-  //   return (
-  //     <ProtectedLayout>
-  //       <Loading />
-  //     </ProtectedLayout>
-  //   );
-  // }
-
-  // if (!user) {
-  //   return null;
-  // }
-
   return (
     <ProtectedLayout>
       <DealAnalyzerItemPageContent docId={docId} />
@@ -57,7 +17,7 @@ async function DealAnalyzerItemPageContent({ docId }) {
     const dealAnalyzerData = await fetchDealAnalyzerData(docId);
 
     return dealAnalyzerData ? (
-      <DealFormDynamic initialData={dealAnalyzerData} docId={docId}/>
+      <DealFormDynamic initialData={dealAnalyzerData} docId={docId} />
     ) : (
       <div>Deal analyzer not found</div>
     );

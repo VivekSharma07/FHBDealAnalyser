@@ -1,21 +1,27 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { getFirestore, doc, getDoc, collection, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import CurrencyInput from "react-currency-input-field";
-import {useRouter} from 'next/navigation'
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import {auth} from '../../firebase/firebaseConfig'
+import { auth } from "../../firebase/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { ToastContainer } from "react-toastify";
 
 const TestDealAnalyserForm = () => {
   const router = useRouter();
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(auth);
 
-  const [saving, setSaving] = useState(false)
+  const [saving, setSaving] = useState(false);
 
   const [openSections, setOpenSections] = useState({
     basicInfo: true,
@@ -88,7 +94,10 @@ const TestDealAnalyserForm = () => {
     try {
       const db = getFirestore();
       const dealAnalyzerCollectionRef = collection(db, "deal-analyser");
-      const newDealAnalyzerRef = await addDoc(dealAnalyzerCollectionRef, formData);
+      const newDealAnalyzerRef = await addDoc(
+        dealAnalyzerCollectionRef,
+        formData
+      );
       toast.success("Deal Created", {
         position: "bottom-right",
         autoClose: 2000,
@@ -112,22 +121,20 @@ const TestDealAnalyserForm = () => {
 
   //google maps api useeffect
   useEffect(() => {
-
-    if(!user?.uid){
-      router.push('/signin')
-    }else{
+    if (!user?.uid) {
+      router.push("/signin");
+    } else {
       const script = document.createElement("script");
       script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC4UXWDrbeXjmDGVhLlZMOaA689Whv1WMk=&libraries=places`;
       script.async = true;
       script.defer = true;
       script.onload = initAutocomplete;
       document.body.appendChild(script);
-  
+
       return () => {
         document.body.removeChild(script);
       };
     }
-    
   }, []);
 
   //total cash needed useeffect
@@ -332,6 +339,18 @@ const TestDealAnalyserForm = () => {
         <h1 className="text-3xl sm:text-4xl mb-8 items-center font-medium">
           Deal Analyser v1
         </h1>
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          className="mt-16"
+        />
 
         {/* 4 Cards at the top*/}
 
@@ -2511,8 +2530,6 @@ const TestDealAnalyserForm = () => {
           {saving ? "Saving..." : "Save"}
         </button>
       </div>
-      <ToastContainer />
-
     </div>
   );
 };
