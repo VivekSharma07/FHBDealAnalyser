@@ -6,9 +6,10 @@ import "./DealAnalyserForm.css";
 import {db, auth} from '../../../../firebase/firebaseConfig'
 import {useRouter} from 'next/navigation'
 import { toast } from "react-toastify";
+import { handleSave } from "@/lib/fetchData";
 
 import { ToastContainer } from "react-toastify";
-const DealFormDynamic = ({initialData}) => {
+const DealFormDynamic = ({initialData, docId}) => {
     const router = useRouter();
   const [openSections, setOpenSections] = useState({
     basicInfo: true,
@@ -24,35 +25,35 @@ const DealFormDynamic = ({initialData}) => {
 
 
 
-  const handleSave = async () => {
-    setSaving(true);
-    try {
-      if (initialData?.id) {
-        // Update existing document
-        const dealAnalyzerRef = doc(db, "deal-analyser", initialData.id);
-        await setDoc(dealAnalyzerRef, formData);
-        router.push(`/deal-analyser-1/deals/${initialData.id}`);
-      } else {
-        // Create new document
-        const dealAnalyzerCollectionRef = collection(db, "deal-analyser");
-        const newDealAnalyzerRef = await addDoc(dealAnalyzerCollectionRef, formData);
-        toast.success(`Deal Updated with ID: ${newDealAnalyzerRef.id}`, {
-          position: "bottom-right",
-          autoClose: 2000,
-        });
-      }
-    } catch (error) {
-      console.error("Error saving deal analyzer:", error);
-      toast.error(`Error in updating the deal: ${error.message}`, {
-        position: "bottom-right",
-        autoClose: 2000,
-      });
-    } finally {
-      setSaving(false);
-    }
-  };
+  // const handleSave = async () => {
+  //   setSaving(true);
+  //   try {
+  //     if (initialData?.id) {
+  //       // Update existing document
+  //       const dealAnalyzerRef = doc(db, "deal-analyser", initialData.id);
+  //       await setDoc(dealAnalyzerRef, formData);
+  //       router.push(`/deal-analyser-1/deals/${initialData.id}`);
+  //     } else {
+  //       // Create new document
+  //       const dealAnalyzerCollectionRef = collection(db, "deal-analyser");
+  //       const newDealAnalyzerRef = await addDoc(dealAnalyzerCollectionRef, formData);
+  //       toast.success(`Deal Updated with ID: ${newDealAnalyzerRef.id}`, {
+  //         position: "bottom-right",
+  //         autoClose: 2000,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving deal analyzer:", error);
+  //     toast.error(`Error in updating the deal: ${error.message}`, {
+  //       position: "bottom-right",
+  //       autoClose: 2000,
+  //     });
+  //   } finally {
+  //     setSaving(false);
+  //   }
+  // };
 
-
+  
   const handleCancel = () => {
     router.push("/deal-analyser-1");
   };
@@ -115,7 +116,21 @@ const DealFormDynamic = ({initialData}) => {
 //   });
 
   const addressInputRef = useRef(null);
-
+  async function onSave () {
+    try {
+      await handleSave(formData, setSaving, docId);
+      toast.success("Deal Saved!", {
+                position: "bottom-right",
+                autoClose: 2000,
+              });
+    } catch (error) {
+      toast.error(`Error in saving deal: ${error.message}`, {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
+    }
+    
+  };
   //google maps api useeffect
   useEffect(() => {
     const script = document.createElement("script");
@@ -2510,7 +2525,7 @@ const DealFormDynamic = ({initialData}) => {
           Cancel
         </button>
         <button
-          onClick={handleSave}
+          onClick={onSave}
           disabled={saving}
           className={`px-4 py-2 text-white bg-blue-600 rounded ${
             saving ? "opacity-50 cursor-not-allowed" : ""

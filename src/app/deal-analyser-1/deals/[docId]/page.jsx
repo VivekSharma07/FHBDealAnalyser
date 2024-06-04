@@ -2,7 +2,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import ProtectedLayout from "../../../../components/protected_layout";
 import DealFormDynamic from "./dealForm";
-import { fetchDealAnalyzerData } from "@/lib/fetchData";
+import { fetchDealAnalyzerData, handleSave } from "@/lib/fetchData";
 // import { useAuthState } from "react-firebase-hooks/auth";
 // import { useRouter } from 'next/navigation';
 // import { useEffect } from 'react';
@@ -57,7 +57,7 @@ async function DealAnalyzerItemPageContent({ docId }) {
     const dealAnalyzerData = await fetchDealAnalyzerData(docId);
 
     return dealAnalyzerData ? (
-      <DealFormDynamic initialData={dealAnalyzerData} />
+      <DealFormDynamic initialData={dealAnalyzerData} docId={docId}/>
     ) : (
       <div>Deal analyzer not found</div>
     );
