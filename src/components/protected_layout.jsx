@@ -11,7 +11,7 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
-import { auth } from "../../firebase/firebaseConfig";
+import { auth } from "../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 // ThemeToggle.jsx
 

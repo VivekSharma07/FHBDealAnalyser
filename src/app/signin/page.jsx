@@ -6,7 +6,7 @@ import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
-import { auth, db } from "../../../firebase/firebaseConfig";
+import { auth, db } from "../../firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";

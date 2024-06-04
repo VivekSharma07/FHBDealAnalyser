@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/firebaseConfig";
+import { auth } from "../firebase/firebaseConfig";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const PrivateRoute = ({ children }) => {

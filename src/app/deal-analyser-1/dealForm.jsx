@@ -174,7 +174,7 @@ const DealAnalyserForm = () => {
 
       <div className="w-full border-t border-gray-300 my-8"></div>
       <form>
-        <div className="form-grid">
+        <div className="form-grid border-gray-300 my-8">
           <div className="column-1">
             <div className="form-group">
               <label htmlFor="propertyAddress">

@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/firebaseConfig";
+import { auth } from "../firebase/firebaseConfig";
 import Features from "@/components/features";
 import Image from "next/image";
 import { useEffect } from "react";

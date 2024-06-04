@@ -1,0 +1,132 @@
+.deal-analyser-form {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .hint-icon {
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-left: 1.5rem;
+  }
+  
+  fieldset {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  legend {
+    font-weight: bold;
+  }
+  
+  .holding-costs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .holding-costs-header {
+    font-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  
+  }
+
+  .equal-height-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 20px;
+  }
+  
+  .equal-height-grid fieldset {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .equal-height-grid .holding-costs-grid {
+    flex: 1;
+  }
+
+  .percentage-field {
+    display: flex;
+    align-items: center;
+  }
+  
+  .percentage-field input {
+    width: 80px;
+    margin-right: 5px;
+  }
+  
+  .calculated-field {
+    font-weight: bold;
+  }
+
+  .form-grid-3-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+
+.form-group label {
+  text-align: right;
+  margin-right: 10px;
+}
+
+.input-field {
+  display: flex;
+  align-items: center;
+}
+
+.input-field input {
+  flex: 1;
+  margin-right: 5px;
+}
+
+.calculated-field {
+  text-align: left;
+  margin-left: 1.5rem;
+}
+
+

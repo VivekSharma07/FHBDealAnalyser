@@ -1,6 +1,6 @@
 "use client";
 import ProtectedLayout from "../../components/protected_layout";
-import { auth } from "../../../firebase/firebaseConfig";
+import { auth } from "../../firebase/firebaseConfig";
 import PrivateRoute from "@/components/PrivateRoute";
 import InTheWorksKPI from "./KPIs/InTheWorksKPI";
 import CardLayout from "./CardLayout/CardLayout";

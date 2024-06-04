@@ -1,22 +1,15 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { getFirestore, doc, getDoc, collection, addDoc } from "firebase/firestore";
-
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import CurrencyInput from "react-currency-input-field";
+import "./DealAnalyserForm.css";
+import {db, auth} from '../../../../firebase/firebaseConfig'
 import {useRouter} from 'next/navigation'
 import { toast } from "react-toastify";
-import {auth} from '../../firebase/firebaseConfig'
-import { useAuthState } from "react-firebase-hooks/auth";
 
 import { ToastContainer } from "react-toastify";
-
-const TestDealAnalyserForm = () => {
-  const router = useRouter();
-  const [user] = useAuthState(auth)
-
-  const [saving, setSaving] = useState(false)
-
+const DealFormDynamic = ({initialData}) => {
+    const router = useRouter();
   const [openSections, setOpenSections] = useState({
     basicInfo: true,
     propertyDescription: true,
@@ -29,74 +22,28 @@ const TestDealAnalyserForm = () => {
     potentialReturnProfitAnalysis: true,
   });
 
-  const [formData, setFormData] = useState({
-    propertyAddress: "",
-    totalSqFootage: 1,
-    evaluatorName: "",
-    propertyDescription: "",
-    numberOfUnits: 0,
-    date: new Date().toISOString().slice(0, 10),
-    daysOnMarket: "",
-    occupied: "",
-    afterRepairValue: 0,
-    currentAsIsValue: 0,
-    estimatedRepairCosts: 0,
-    purchasePrice: 0,
-    propertyTaxesAnnually: 6173,
-    hoaAndCondoFeesAnnually: 0,
-    hoaAndCondoFeesMonthly: 0,
-    insuranceCostsAnnually: 1600,
-    utilityCostsAnnually: 0,
-    utilityCostsMonthly: 0,
-    gasCostsMonthly: 100,
-    waterCostsMonthly: 20,
-    electricityCostsMonthly: 75,
-    otherCostsMonthly: 0,
-    estimatedHoldTime: 4,
-    firstMortgageAmount: 0,
-    firstMortgageAmountPercentage: 90,
-    firstMortgagePoints: 3,
-    firstMortgageInterest: 12,
-    secondMortgageAmount: 0,
-    secondMortgageAmountPercentage: 0,
-    secondMortgagePoints: 0,
-    secondMortgageInterest: 0,
-    miscMortgageAmount: 0,
-    miscMortgageAmountPercentage: 0,
-    miscMortgagePoints: 0,
-    miscMortgageInterest: 0,
-    miscellaneousFinancingCosts: 0,
-    chalireFees: 1845,
-    totalCashNeededForDeal: 0,
-    interestToLender: 0,
-    totalFinancingCosts: 0,
-    escrowAttorneyFees: 900,
-    titleInsuranceSearchCostsPercentage: 0.25,
-    miscBuyingCostsPerc: 1.25,
-    sellingEscrowAttorneyFees: 900,
-    sellingRecordingFees: 500,
-    realtorFeePercent: 5,
-    transferConveyanceFeePercentage: 0.35,
-    homeWarranty: 0,
-    stagingCosts: 0,
-    marketingCosts: 0,
-    miscSellingCosts: 0,
-    miscHoldingCosts: 0,
-  });
+
+
   const handleSave = async () => {
     setSaving(true);
     try {
-      const db = getFirestore();
-      const dealAnalyzerCollectionRef = collection(db, "deal-analyser");
-      const newDealAnalyzerRef = await addDoc(dealAnalyzerCollectionRef, formData);
-      toast.success("Deal Created", {
-        position: "bottom-right",
-        autoClose: 2000,
-      });
-      router.push(`/deal-analyser-1/deals/${newDealAnalyzerRef.id}`);
+      if (initialData?.id) {
+        // Update existing document
+        const dealAnalyzerRef = doc(db, "deal-analyser", initialData.id);
+        await setDoc(dealAnalyzerRef, formData);
+        router.push(`/deal-analyser-1/deals/${initialData.id}`);
+      } else {
+        // Create new document
+        const dealAnalyzerCollectionRef = collection(db, "deal-analyser");
+        const newDealAnalyzerRef = await addDoc(dealAnalyzerCollectionRef, formData);
+        toast.success(`Deal Updated with ID: ${newDealAnalyzerRef.id}`, {
+          position: "bottom-right",
+          autoClose: 2000,
+        });
+      }
     } catch (error) {
       console.error("Error saving deal analyzer:", error);
-      toast.error("Error, please try again", {
+      toast.error(`Error in updating the deal: ${error.message}`, {
         position: "bottom-right",
         autoClose: 2000,
       });
@@ -105,29 +52,82 @@ const TestDealAnalyserForm = () => {
     }
   };
 
+
   const handleCancel = () => {
     router.push("/deal-analyser-1");
   };
+  const [formData, setFormData] = useState(initialData)
+  const [saving, setSaving] = useState(false)
+//   previous states
+//   const [formData, setFormData] = useState({
+//     propertyAddress: "",
+//     totalSqFootage: 1,
+//     evaluatorName: "",
+//     propertyDescription: "",
+//     numberOfUnits: 0,
+//     date: new Date().toISOString().slice(0, 10),
+//     daysOnMarket: "",
+//     occupied: "",
+//     afterRepairValue: 0,
+//     currentAsIsValue: 0,
+//     estimatedRepairCosts: 0,
+//     purchasePrice: 0,
+//     propertyTaxesAnnually: 6173,
+//     hoaAndCondoFeesAnnually: 0,
+//     hoaAndCondoFeesMonthly: 0,
+//     insuranceCostsAnnually: 1600,
+//     utilityCostsAnnually: 0,
+//     utilityCostsMonthly: 0,
+//     gasCostsMonthly: 100,
+//     waterCostsMonthly: 20,
+//     electricityCostsMonthly: 75,
+//     otherCostsMonthly: 0,
+//     estimatedHoldTime: 4,
+//     firstMortgageAmount: 0,
+//     firstMortgageAmountPercentage: 90,
+//     firstMortgagePoints: 3,
+//     firstMortgageInterest: 12,
+//     secondMortgageAmount: 0,
+//     secondMortgageAmountPercentage: 0,
+//     secondMortgagePoints: 0,
+//     secondMortgageInterest: 0,
+//     miscMortgageAmount: 0,
+//     miscMortgageAmountPercentage: 0,
+//     miscMortgagePoints: 0,
+//     miscMortgageInterest: 0,
+//     miscellaneousFinancingCosts: 0,
+//     chalireFees: 1845,
+//     totalCashNeededForDeal: 0,
+//     interestToLender: 0,
+//     totalFinancingCosts: 0,
+//     escrowAttorneyFees: 900,
+//     titleInsuranceSearchCostsPercentage: 0.25,
+//     miscBuyingCostsPerc: 1.25,
+//     sellingEscrowAttorneyFees: 900,
+//     sellingRecordingFees: 500,
+//     realtorFeePercent: 5,
+//     transferConveyanceFeePercentage: 0.35,
+//     homeWarranty: 0,
+//     stagingCosts: 0,
+//     marketingCosts: 0,
+//     miscSellingCosts: 0,
+//     miscHoldingCosts: 0,
+//   });
+
   const addressInputRef = useRef(null);
 
   //google maps api useeffect
   useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC4UXWDrbeXjmDGVhLlZMOaA689Whv1WMk=&libraries=places`;
+    script.async = true;
+    script.defer = true;
+    script.onload = initAutocomplete;
+    document.body.appendChild(script);
 
-    if(!user?.uid){
-      router.push('/signin')
-    }else{
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC4UXWDrbeXjmDGVhLlZMOaA689Whv1WMk=&libraries=places`;
-      script.async = true;
-      script.defer = true;
-      script.onload = initAutocomplete;
-      document.body.appendChild(script);
-  
-      return () => {
-        document.body.removeChild(script);
-      };
-    }
-    
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   //total cash needed useeffect
@@ -328,7 +328,14 @@ const TestDealAnalyserForm = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-screen overflow-y-auto text-sm">
-      <div className="p-4 text-primary dark:text-primary-dark">
+        {Object.keys(initialData).length === 0 ? (
+        <>
+          <Skeleton className="h-6 w-1/2 mb-2" />
+          <Skeleton className="h-10 w-full" />
+        </>
+      ) : 
+      (
+        <div className="p-4 text-primary dark:text-primary-dark">
         <h1 className="text-3xl sm:text-4xl mb-8 items-center font-medium">
           Deal Analyser v1
         </h1>
@@ -2494,6 +2501,7 @@ const TestDealAnalyserForm = () => {
           </div>
         </div>
       </div>
+      )}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200">
         <button
           onClick={handleCancel}
@@ -2511,10 +2519,11 @@ const TestDealAnalyserForm = () => {
           {saving ? "Saving..." : "Save"}
         </button>
       </div>
-      <ToastContainer />
-
+      <ToastContainer/>
     </div>
+
+    
   );
 };
 
-export default TestDealAnalyserForm;
+export default DealFormDynamic;
