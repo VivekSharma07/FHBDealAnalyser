@@ -2039,22 +2039,22 @@ const TestDealAnalyserForm = () => {
               <div className="my-8">
                 {/* Add fields for Purchase and Deal Analysis */}
 
-                <div className="">
-                  <div className="form-group ">
+                <div className="border rounded-md border-gray-300 my-8 mx-8">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="arv">AFTER REPAIR VALUE</label>
                     <div className="calculated-field ">
                       {formatCurrency(formData.afterRepairValue)}
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="purchasePrice">PURCHASE PRICE</label>
                     <div className="calculated-field">
                       {formatCurrency(formData.purchasePrice)}
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="estRepairCosts">
                       ESTIMATED REPAIR COSTS
                     </label>
@@ -2063,7 +2063,7 @@ const TestDealAnalyserForm = () => {
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="totalFinancingCosts">
                       TOTAL FINANCING COSTS
                     </label>
@@ -2072,7 +2072,7 @@ const TestDealAnalyserForm = () => {
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="totalHoldingCosts">
                       TOTAL HOLDING COSTS
                     </label>
@@ -2091,7 +2091,7 @@ const TestDealAnalyserForm = () => {
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="totalBuyingTransactionCost">
                       TOTAL BUYING TRANSACTION COSTS
                     </label>
@@ -2108,7 +2108,7 @@ const TestDealAnalyserForm = () => {
                       )}
                     </div>
                   </div>
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="totalSellingTransactionCost">
                       TOTAL SELLING TRANSACTION COSTS
                     </label>
@@ -2150,11 +2150,11 @@ const TestDealAnalyserForm = () => {
             {openSections.potentialReturnProfitAnalysis && (
               <div className="">
                 {/* Add fields for Potential Return & Profit Analysis */}
-                <div className="my-8">
+                <div className="my-8 mx-8 border rounded-md border-gray-300">
                   {/* Add fields for Purchase and Deal Analysis */}
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="assumeSaleIsOnOrBefore">
                         ASSUMES SALE IS ON OR BEFORE
                       </label>
@@ -2168,7 +2168,7 @@ const TestDealAnalyserForm = () => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="purchasePlusEstimatedRepairCostsPerSqFt">
                         Purchase + Estimated Repair Cost Per Sq Ft.
                       </label>
@@ -2183,7 +2183,7 @@ const TestDealAnalyserForm = () => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="downPaymentRequiredAtClosing">
                         Down Payment Required at Closing
                       </label>
@@ -2202,7 +2202,7 @@ const TestDealAnalyserForm = () => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="myCommittedCapital">
                         My Committed Capital
                       </label>
@@ -2251,7 +2251,7 @@ const TestDealAnalyserForm = () => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="myAnnualisedCashOnCashReturn">
                         My Annualised Cash on Cash Return
                       </label>
@@ -2424,7 +2424,7 @@ const TestDealAnalyserForm = () => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="totalAnnualisedCashOnReturn">
                         Total Annualised Cash on Return
                       </label>

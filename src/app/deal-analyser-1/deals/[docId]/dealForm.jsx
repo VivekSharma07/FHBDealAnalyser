@@ -122,14 +122,14 @@ const DealFormDynamic = ({initialData, docId}) => {
     try {
       await handleSave(formData, setSaving, docId);
       toast({
-        title: "Deal Updated",
+        title: "Deal Created",
         description: "Deal Updated Successfully!",
         variant: "default",
 
       })
     } catch (error) {
       toast({
-        title: "Error in Updating Deal",
+        title: "Error in Creating Deal",
         description: error.message,
         variant: 'destructive'
       })
@@ -2050,25 +2050,25 @@ const DealFormDynamic = ({initialData, docId}) => {
               )}
             </div>
             {openSections.purchaseDealAnalysis && (
-              <div className="my-8">
+              <div className="my-8 border rounded-md border-gray-300 mx-8">
                 {/* Add fields for Purchase and Deal Analysis */}
 
                 <div className="">
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="arv">AFTER REPAIR VALUE</label>
                     <div className="calculated-field ">
                       {formatCurrency(formData.afterRepairValue)}
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="purchasePrice">PURCHASE PRICE</label>
                     <div className="calculated-field">
                       {formatCurrency(formData.purchasePrice)}
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="estRepairCosts">
                       ESTIMATED REPAIR COSTS
                     </label>
@@ -2077,7 +2077,7 @@ const DealFormDynamic = ({initialData, docId}) => {
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="totalFinancingCosts">
                       TOTAL FINANCING COSTS
                     </label>
@@ -2086,7 +2086,7 @@ const DealFormDynamic = ({initialData, docId}) => {
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="totalHoldingCosts">
                       TOTAL HOLDING COSTS
                     </label>
@@ -2105,7 +2105,7 @@ const DealFormDynamic = ({initialData, docId}) => {
                     </div>
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="totalBuyingTransactionCost">
                       TOTAL BUYING TRANSACTION COSTS
                     </label>
@@ -2122,7 +2122,7 @@ const DealFormDynamic = ({initialData, docId}) => {
                       )}
                     </div>
                   </div>
-                  <div className="form-group ">
+                  <div className="form-group my-8 mx-8">
                     <label htmlFor="totalSellingTransactionCost">
                       TOTAL SELLING TRANSACTION COSTS
                     </label>
@@ -2164,11 +2164,11 @@ const DealFormDynamic = ({initialData, docId}) => {
             {openSections.potentialReturnProfitAnalysis && (
               <div className="">
                 {/* Add fields for Potential Return & Profit Analysis */}
-                <div className="my-8">
+                <div className="my-8 mx-8 border rounded-md border-gray-300">
                   {/* Add fields for Purchase and Deal Analysis */}
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="assumeSaleIsOnOrBefore">
                         ASSUMES SALE IS ON OR BEFORE
                       </label>
@@ -2182,7 +2182,7 @@ const DealFormDynamic = ({initialData, docId}) => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="purchasePlusEstimatedRepairCostsPerSqFt">
                         Purchase + Estimated Repair Cost Per Sq Ft.
                       </label>
@@ -2197,7 +2197,7 @@ const DealFormDynamic = ({initialData, docId}) => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="downPaymentRequiredAtClosing">
                         Down Payment Required at Closing
                       </label>
@@ -2216,7 +2216,7 @@ const DealFormDynamic = ({initialData, docId}) => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="myCommittedCapital">
                         My Committed Capital
                       </label>
@@ -2265,7 +2265,7 @@ const DealFormDynamic = ({initialData, docId}) => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="myAnnualisedCashOnCashReturn">
                         My Annualised Cash on Cash Return
                       </label>
@@ -2438,7 +2438,7 @@ const DealFormDynamic = ({initialData, docId}) => {
                   </div>
 
                   <div className="">
-                    <div className="form-group ">
+                    <div className="form-group my-8 mx-8">
                       <label htmlFor="totalAnnualisedCashOnReturn">
                         Total Annualised Cash on Return
                       </label>
